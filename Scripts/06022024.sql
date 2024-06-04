@@ -1,3 +1,4 @@
+--Tabla de Categoria
 CREATE TABLE Categoria(
 	CategoriaId INT NOT NULL IDENTITY,
 	Nombre NVARCHAR(120) NOT NULL
@@ -6,6 +7,7 @@ CREATE TABLE Categoria(
 ALTER TABLE Categoria
 	ADD CONSTRAINT PK_Categoria PRIMARY KEY(CategoriaId)
 
+-- Tabla de Marca
 CREATE TABLE Marca(
 	MarcaId INT NOT NULL IDENTITY,
 	Nombre NVARCHAR(120) NOT NULL
@@ -14,6 +16,7 @@ CREATE TABLE Marca(
 ALTER TABLE Marca
 	ADD CONSTRAINT PK_Marca PRIMARY KEY(MarcaId)
 
+-- Tabla de Producto
 CREATE TABLE Producto(
 	ProductoId INT NOT NULL IDENTITY,
 	NombreProducto NVARCHAR(120) NOT NULL,
