@@ -24,5 +24,7 @@ namespace Models.Entidades
 
         [ForeignKey("MarcaId")]
         public Marca Marca { get; set; }
+
+         public PrecioOferta Promocion { get; set; }
     }
 }

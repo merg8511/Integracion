@@ -27,13 +27,20 @@ namespace API.Controllers
             List<ProductoDto> lista = await _context
                 .Productos.Include(p => p.Categoria)
                 .Include(p => p.Marca)
+                .Include(o => o.Promocion)
                 .Select(p => new ProductoDto
                 {
                     NombreProducto = p.NombreProducto,
                     Categoria = p.Categoria.Nombre,
                     Marca = p.Marca.Nombre,
                     Precio = p.Precio,
-                    Costo = p.Costo
+                    Costo = p.Costo,
+                    PrecioActual = p.Promocion == null
+                                 ? p.Precio
+                                 : p.Promocion.NuevoPrecio,
+                    TextoPromocional = p.Promocion == null
+                                       ? null
+                                       : p.Promocion.TextoPromocional
                 })
                 .ToListAsync();
 
@@ -46,6 +53,7 @@ namespace API.Controllers
             var producto = await _context
                 .Productos.Include(c => c.Categoria)
                 .Include(m => m.Marca)
+                .Include(o => o.Promocion)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (producto == null)
@@ -58,7 +66,13 @@ namespace API.Controllers
                     Categoria = producto.Categoria.Nombre,
                     Marca = producto.Marca.Nombre,
                     Costo = producto.Costo,
-                    Precio = producto.Precio
+                    Precio = producto.Precio,
+                    PrecioActual = producto.Promocion == null
+                                                    ? producto.Precio
+                                                    : producto.Promocion.NuevoPrecio,
+                    TextoPromocional = producto.Promocion == null
+                                                    ? null
+                                                    : producto.Promocion.TextoPromocional
                 }
             );
         }
